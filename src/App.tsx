@@ -1,87 +1,99 @@
-import React from 'react';
-import styled from "styled-components";
-import {Box, Typography, Drawer, ListItemIcon, ListItem, List, ListItemText, Divider} from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import React, { useEffect, useState } from 'react';
+import { routes } from './core/router/routes';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { PageHeader } from './components/header/PageHeader';
+import { unauthorizedRoutes } from './core/router/unauthorizedRoutes';
+import { RedirectWithQuery } from './core/router/redirectWithQuery';
+import { Path } from './core/router/paths';
+import authStore from './store/auth'
+import { MainPage } from "./views/main/MainPage";
+import { LoginPage } from './views/auth/login/LoginPage';
+import { RegistrationPage } from './views/auth/registration/RegistrationPage';
+import { NotFoundPage } from './views/notFoundPage/NotFoundPage';
+import { UserType } from './views/auth/types';
+import { observer } from 'mobx-react-lite';
+import { isBoolean } from 'util';
 
+// TODO: make authentication for user
 
-function App() {
-    const [isOpen, setIsOpen] = React.useState(false);
+export const App = observer(() => {
+    const jwt = localStorage.getItem('jwt')
+    const { isAuthorized } = authStore;
+    // const [userData, setUserData] = useState<UserType>({ id: 0, name: '', surname: '', role: '' });
 
-    const list = () => (
-        <Box
-            sx={{ width: 250 }}
-            role="presentation"
-        >
-            <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
-        </Box>
-    );
+    useEffect(() => {
+        if(jwt) {
+            authStore.setIsAuthorized(true);
+        }
+    }, [jwt])
 
     return (
-        <div className="App">
-            <Button onClick={() => setIsOpen(!isOpen)}>Hello!</Button>
-            <Typography variant="h4">{`Hello, fakhri 🎃`}</Typography>
-            <Box sx={{ p: 3 }}>
-                <Typography paragraph>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                    magna aliqua. Rhoncus dolor purus non enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                    imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus. Convallis convallis tellus id interdum
-                    velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                    adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate eu
-                    scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt
-                    lobortis feugiat vivamus at augue. At augue eget arcu dictum varius duis at consectetur lorem. Velit sed
-                    ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie ac.
-                </Typography>
-                <Typography paragraph>
-                    Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla facilisi etiam
-                    dignissim diam. Pulvinar elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus
-                    sed viverra tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis sed odio morbi. Euismod
-                    lacinia at quis risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in.
-                    In hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-                    morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin nibh sit. Ornare aenean euismod
-                    elementum nisi quis eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla posuere
-                    sollicitudin aliquam ultrices sagittis orci a.
-                </Typography>
-            </Box>
-            <Box width="100%" height="30%">
-                <Drawer
-                    anchor={'left'}
-                    open={isOpen}
-                    onClose={() => setIsOpen(false)}
-                >
-                    {
-                        list()
-                    }
-                </Drawer>
-            </Box>
-        </div>
+            <BrowserRouter>
+                <header style={{ zIndex: 6 }}>
+                    <PageHeader />
+                </header>
+                <Switch>
+                    <Route path="/" exact>
+                        <RedirectWithQuery to={Path.MAIN} />
+                    </Route>
+                    <Route path={Path.MAIN} exact>
+                        <MainPage />
+                    </Route>
+                    <Route path={Path.NOTFOUND} component={NotFoundPage} />
+
+                    <Route path={Path.LOGIN} exact>
+                        <LoginPage />
+                    </Route>
+                    <Route path={Path.REGISTER} exact component={RegistrationPage} />
+                    <Route path="*">
+                        <Redirect to={Path.NOTFOUND} />
+                    </Route>
+                </Switch>
+            </BrowserRouter>
     );
-}
+});
 
-const Button = styled.button`
-  color: red;
-  width: 100%;
-  font-size: x-large;
-`;
+// return isAuthorized ? (
+//         <BrowserRouter>
+//             {/*<header style={{ zIndex: 6 }}>*/}
+//             {/*    <PageHeader />*/}
+//             {/*</header>*/}
+//             <Switch>
+//                 <Route path="/" exact>
+//                     <RedirectWithQuery to={Path.MAIN} />
+//                 </Route>
+//                 <Route path="/login" exact>
+//                     <RedirectWithQuery to={Path.MAIN} />
+//                 </Route>
+//                 <Route path="/register" exact>
+//                     <RedirectWithQuery to={Path.MAIN} />
+//                 </Route>
+//                 <Route path={Path.MAIN} exact>
+//                     <MainPage />
+//                 </Route>
+//                 <Route path={Path.NOTFOUND} component={NotFoundPage} />
+//
+//                 <Route path="*">
+//                     <Redirect to={Path.NOTFOUND} />
+//                 </Route>
+//             </Switch>
+//         </BrowserRouter>
+//     ) :
+//     <BrowserRouter>
+//         <Switch>
+//             <Route path={Path.LOGIN} exact>
+//                 <LoginPage />
+//             </Route>
+//             <Route path={Path.REGISTER} exact component={RegistrationPage} />
+//             <Route path="/" exact>
+//                 <RedirectWithQuery to={Path.LOGIN} />
+//             </Route>
+//             <Route path={Path.NOTFOUND} component={NotFoundPage} />
+//             {!jwt &&
+//             <Route path="*">
+//                 <Redirect to={Path.NOTFOUND} />
+//             </Route>
+//             }
+//         </Switch>
+//     </BrowserRouter>
 
-export default App;
