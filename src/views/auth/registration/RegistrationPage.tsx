@@ -20,6 +20,8 @@ import authStore from '../../../store/auth';
 import { observer } from 'mobx-react-lite';
 import { successToast } from '../../../components/alerts/success';
 import { errorToast } from '../../../components/alerts/fail';
+import {ProjectDescription} from "../../../components/projectDescription";
+import {BackgroundImages} from "../../../components/bg/BgImages";
 
 const wikiSynagogueUrl = 'https://en.wikipedia.org/wiki/Synagogue';
 
@@ -56,7 +58,7 @@ export const RegistrationPage = observer(() => {
                 justify={'center'}
                 userSelect={'none'}
             >
-                <Flex w="40%" h="100%" color="#fff" justifyContent="center" pl="63px" pr="63px" alignItems="flex-start" flexDir="column" marginTop="170px">
+                <Flex w="40%" h="74%" color="#fff" justifyContent="center" pl="63px" pr="63px" alignItems="flex-start" flexDir="column" marginTop="100px">
                     <Stack mx={'auto'} maxW={'lg'} w="450px">
 
                         <Text w={'229px'} h="38px" fontSize={'32px'} lineHeight="38px" fontWeight="400">
@@ -68,12 +70,21 @@ export const RegistrationPage = observer(() => {
                                 boxShadow={'lg'}
                                 width="315px"
                             >
-                                <Stack spacing={6}>
+                                <Stack spacing={3}>
                                     <TextInput
-                                        width="315px"
                                         autoComplete="on"
                                         name='email'
                                         label='E-mail'
+                                    />
+                                    <TextInput
+                                        autoComplete="on"
+                                        name='email'
+                                        label='Название компании'
+                                    />
+                                    <TextInput
+                                        autoComplete="on"
+                                        name='password'
+                                        label='Пароль'
                                     />
                                     <Stack spacing={4}>
                                         <Button
@@ -87,6 +98,7 @@ export const RegistrationPage = observer(() => {
                                             _hover={{
                                                 bg: 'blue.500',
                                             }}
+                                            mt="22px"
                                         >
                                             Отправить письмо
                                         </Button>
@@ -96,7 +108,7 @@ export const RegistrationPage = observer(() => {
                         </Form>
                     </Stack>
                     <Flex alignItems="flex-end">
-                        <Text align={'start'} marginTop="170px">
+                        <Text align={'start'} marginTop="70px">
                             Уже есть аккаунт? <RouterLink to={Path.LOGIN}>
                             <chakra.span color='#4299E1' _hover={{ textDecoration: 'underline' }}>
                                 Войти
@@ -105,11 +117,11 @@ export const RegistrationPage = observer(() => {
                         </Text>
                     </Flex>
                 </Flex>
-                <Flex alignItems="center" justifyContent="center" flexDir="column" fontSize={'24px'} color={'#fff'} w="60%" bg={'gray'} h="100%" fontWeight="400">
-                    <Text>
-                        Здесь будет описание проекта и идеи
-                    </Text>
-                    <Link href={wikiSynagogueUrl} target="_blank" fontSize="12px" color='#4299E1' _hover={{ textDecoration: 'underline' }}>Узнать больше</Link>
+                <Flex h="100%" fontWeight="400" position="relative" w="60%">
+                    <BackgroundImages />
+                    <Flex w="100%" h="100%" position="relative">
+                        <ProjectDescription desc={'Здесь будет описание проекта и идеи'} linkText={'Узнать больше'}/>
+                    </Flex>
                 </Flex>
             </Flex>
         )}

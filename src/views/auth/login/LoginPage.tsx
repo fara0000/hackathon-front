@@ -20,6 +20,9 @@ import authStore from '../../../store/auth';
 // import { loginUserApi } from '../../../api/auth/api';
 import { errorToast } from '../../../components/alerts/fail';
 import { observer } from 'mobx-react-lite';
+import '../../../components/bg/index.css';
+import {BackgroundImages} from "../../../components/bg/BgImages";
+import {ProjectDescription} from "../../../components/projectDescription";
 
 const wikiSynagogueUrl = 'https://en.wikipedia.org/wiki/Synagogue';
 
@@ -66,7 +69,7 @@ export const LoginPage: FC = observer(() => {
               justify={'center'}
               userSelect={'none'}
           >
-            <Flex w="40%" h="100%" color="#fff" justifyContent="center" pl="63px" pr="63px" alignItems="flex-start" flexDir="column" marginTop="100px">
+            <Flex w="40%" h="85%" color="#fff" justifyContent="center" pl="63px" pr="63px" alignItems="flex-start" flexDir="column" marginTop="100px">
               <Stack mx={'auto'} maxW={'lg'} w="450px">
 
                 <Text w={'229px'} h="38px" fontSize={'32px'} lineHeight="38px" fontWeight="400">Вход в систему</Text>
@@ -124,14 +127,15 @@ export const LoginPage: FC = observer(() => {
                 </Text>
               </Flex>
             </Flex>
-            <Flex alignItems="center" justifyContent="center" flexDir="column" fontSize={'24px'} color={'#fff'} w="60%" bg={'gray'} h="100%" fontWeight="400">
-              <Text>
-                Здесь будет описание проекта и идеи
-              </Text>
-              <Link href={wikiSynagogueUrl} target="_blank" fontSize="12px" color='#4299E1' _hover={{ textDecoration: 'underline' }}>Узнать больше</Link>
+            <Flex h="100%" fontWeight="400" position="relative" w="60%">
+              <BackgroundImages />
+              <Flex w="100%" h="100%" position="relative">
+                  <ProjectDescription desc={'Здесь будет описание проекта и идеи'} linkText={'Узнать больше'}/>
+              </Flex>
             </Flex>
           </Flex>
       )}
     </Formik>
   )}
 )
+
