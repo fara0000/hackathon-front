@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import {
-  Flex,
-  Box,
-  HStack,
-  Stack,
-  Button,
-  Heading,
-  Text,
-  chakra, Fade,
+    Flex,
+    Box,
+    HStack,
+    Stack,
+    Button,
+    Heading,
+    Text,
+    chakra, Fade, Link,
 } from '@chakra-ui/react';
 import { Path } from '../../../core/router/paths';
 import { useState } from 'react';
@@ -21,22 +21,18 @@ import { observer } from 'mobx-react-lite';
 import { successToast } from '../../../components/alerts/success';
 import { errorToast } from '../../../components/alerts/fail';
 
-// TODO: clear select fields after submit
+const wikiSynagogueUrl = 'https://en.wikipedia.org/wiki/Synagogue';
 
 export const RegistrationPage = observer(() => {
   const { isLoading, synagogues } = authStore;
+  const bg1 = '#050407';
   const [isClearSelectField, setIsClearSelectField] = useState(false);
 
   return (
-      <Formik<RegistrationFormValues>
+      <Formik<{ email: string }>
         enableReinitialize
         initialValues={{
-          name: '',
-          surname: '',
-          login: '',
-          password: '',
-          role:'',
-          synagogue: '',
+          email: ''
         }}
         onSubmit={(values, formikHelpers) => {
             console.log(values)
@@ -51,85 +47,71 @@ export const RegistrationPage = observer(() => {
         }}
       >
         {({ isSubmitting, dirty, isValid, values }) => (
-        <Flex
-          minH={'100vh'}
-          align={'center'}
-          justify={'center'}
-          bg={useBackgroundColor('gray.50', 'gray.800')}
-        >
-          <Stack spacing={8} mx={'auto'} maxW={'lg'} pb="40px" px={6}>
-            <Stack align={'center'} mb="8px">
-              <Heading fontSize={'4xl'} textAlign={'center'}>
-                Sign up
-              </Heading>
-            </Stack>
-            <Form id="registration-page-form" style={{ margin: 0 }}>
-              <Box
-                rounded={'lg'}
-                bg={useBackgroundColor('white', 'gray.700')}
-                boxShadow={'lg'}
-                p="25px 26px"
-              >
-                <Stack spacing={4}>
-                  <HStack>
-                    <Box>
-                      <TextInput
-                        autoComplete="on"
-                        isRequired
-                        name='name'
-                        label='First Name'
-                      />
-                    </Box>
-                    <Box>
-                     <TextInput
-                      autoComplete="on"
-                      name='surname'
-                      label='Last Name'
-                     />
-                    </Box>
-                  </HStack>
-                  <TextInput
-                    autoComplete="on"
-                    isRequired
-                    name='login'
-                    label='Login'
-                  />
-                  <TextInput
-                    isRequired
-                    autoComplete="on"
-                    name='password'
-                    type='password'
-                    label='Password'
-                  />
-                  <Stack spacing={10} pt={2}>
-                    <Button
-                      type="submit"
-                      form="registration-page-form"
-                      loadingText="Submitting"
-                      size="lg"
-                      bg={'blue.400'}
-                      color={'white'}
-                      _hover={{
-                        bg: 'blue.500',
-                      }}
-                    >
-                      Sign up
-                    </Button>
-                  </Stack>
-                  <Stack>
-                    <Text align={'center'}>
-                      Already a user? <RouterLink to={Path.LOGIN}>
-                      <chakra.span color='#4299E1' _hover={{ textDecoration: 'underline' }}>
-                        Login
-                      </chakra.span>
-                    </RouterLink>
+
+            <Flex
+                bg={bg1}
+                w="100%"
+                h={'100vh'}
+                align={'center'}
+                justify={'center'}
+                userSelect={'none'}
+            >
+                <Flex w="40%" h="100%" color="#fff" justifyContent="center" pl="63px" pr="63px" alignItems="flex-start" flexDir="column" marginTop="170px">
+                    <Stack mx={'auto'} maxW={'lg'} w="450px">
+
+                        <Text w={'229px'} h="38px" fontSize={'32px'} lineHeight="38px" fontWeight="400">
+                            Регистрация
+                        </Text>
+                        <Form id="registration-page-form" style={{ marginTop: '26px' }}>
+                            <Box
+                                rounded={'lg'}
+                                boxShadow={'lg'}
+                                width="315px"
+                            >
+                                <Stack spacing={6}>
+                                    <TextInput
+                                        width="315px"
+                                        autoComplete="on"
+                                        name='email'
+                                        label='E-mail'
+                                    />
+                                    <Stack spacing={4}>
+                                        <Button
+                                            w="315px"
+                                            type="submit"
+                                            form="registration-page-form"
+                                            loadingText="Submitting"
+                                            size="lg"
+                                            bg={'#3047FE'}
+                                            color={'white'}
+                                            _hover={{
+                                                bg: 'blue.500',
+                                            }}
+                                        >
+                                            Отправить письмо
+                                        </Button>
+                                    </Stack>
+                                </Stack>
+                            </Box>
+                        </Form>
+                    </Stack>
+                    <Flex alignItems="flex-end">
+                        <Text align={'start'} marginTop="170px">
+                            Уже есть аккаунт? <RouterLink to={Path.LOGIN}>
+                            <chakra.span color='#4299E1' _hover={{ textDecoration: 'underline' }}>
+                                Войти
+                            </chakra.span>
+                        </RouterLink>
+                        </Text>
+                    </Flex>
+                </Flex>
+                <Flex alignItems="center" justifyContent="center" flexDir="column" fontSize={'24px'} color={'#fff'} w="60%" bg={'gray'} h="100%" fontWeight="400">
+                    <Text>
+                        Здесь будет описание проекта и идеи
                     </Text>
-                  </Stack>
-                </Stack>
-              </Box>
-            </Form>
-          </Stack>
-        </Flex>
+                    <Link href={wikiSynagogueUrl} target="_blank" fontSize="12px" color='#4299E1' _hover={{ textDecoration: 'underline' }}>Узнать больше</Link>
+                </Flex>
+            </Flex>
         )}
       </Formik>
   );

@@ -29,9 +29,9 @@ export const App = observer(() => {
 
     return (
             <BrowserRouter>
-                <header style={{ zIndex: 6 }}>
-                    <PageHeader />
-                </header>
+                {/*<header style={{ zIndex: 6 }}>*/}
+                {/*    <PageHeader />*/}
+                {/*</header>*/}
                 <Switch>
                     <Route path="/" exact>
                         <RedirectWithQuery to={Path.MAIN} />
