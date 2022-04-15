@@ -31,7 +31,7 @@ export const RegistrationPage = observer(() => {
   const [isClearSelectField, setIsClearSelectField] = useState(false);
 
   return (
-      <Formik<{ email: string }>
+      <Formik<RegistrationFormValues>
         enableReinitialize
         initialValues={{
           email: ''

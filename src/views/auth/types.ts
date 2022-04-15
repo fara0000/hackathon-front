@@ -1,5 +1,7 @@
 export interface RegistrationFormValues {
   email: string;
+  companyName: string;
+  password: string;
 }
 
 export interface LoginFormInitialValues {
