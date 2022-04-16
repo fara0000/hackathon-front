@@ -1,7 +1,9 @@
 import { configure, action, isObservable, makeAutoObservable, observable, toJS } from 'mobx';
-import {RegistrationFormValues, JwtType, AxiosResponse} from '../../views/auth/types';
+import {RegistrationFormValues, JwtType, AxiosResponse, LoginFormInitialValues} from '../../views/auth/types';
 import { observer } from 'mobx-react-lite';
 import * as authApi from '../../api/auth';
+import { useHistory } from "react-router-dom";
+import { errorToast } from "../../components/alerts/fail";
 
 class AuthStore {
   user = {

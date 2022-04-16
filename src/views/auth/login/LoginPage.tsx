@@ -23,6 +23,7 @@ import { observer } from 'mobx-react-lite';
 import '../../../components/bg/index.css';
 import {BackgroundImages} from "../../../components/bg/BgImages";
 import {ProjectDescription} from "../../../components/projectDescription";
+import * as authApi from "../../../api/auth";
 
 const wikiSynagogueUrl = 'https://en.wikipedia.org/wiki/Synagogue';
 
@@ -31,6 +32,23 @@ const wikiSynagogueUrl = 'https://en.wikipedia.org/wiki/Synagogue';
 export const LoginPage: FC = observer(() => {
   const bg1 = '#050407';
   const history = useHistory();
+
+  const login = async (values: LoginFormInitialValues, helpers:  FormikHelpers<LoginFormInitialValues>) => {
+    if(values.login && values.password) {
+        return authApi.loginUserApi(values).then(res => {
+            helpers.resetForm();
+            if(res?.status === 200) {
+                authStore.setUser(res.data);
+                authStore.setTokenToLocalStorage(res.data);
+                history.push('/main')
+            } else {
+                errorToast('Не правильные данные пользователя, попробуйте еще раз!');
+            }
+        })
+    } else {
+        errorToast('Пожалуйста заполните все данные!')
+    }
+  }
 
   // const signIn = (values: LoginFormInitialValues, helpers:  FormikHelpers<LoginFormInitialValues>) => {
   //   if(values.login && values.password) {
@@ -53,11 +71,11 @@ export const LoginPage: FC = observer(() => {
     <Formik<LoginFormInitialValues>
       enableReinitialize
       initialValues={{
-        email: '',
+        login: '',
         password: '',
       }}
-      onSubmit={(values, formikHelpers) => {
-        console.log(values)
+      onSubmit={async (values, formikHelpers) => {
+        await login(values, formikHelpers);
       }}
     >
       {({ isSubmitting, dirty, isValid, values }) => (
@@ -83,7 +101,7 @@ export const LoginPage: FC = observer(() => {
                       <TextInput
                           width="315px"
                           autoComplete="on"
-                          name='email'
+                          name='login'
                           label='E-mail'
                       />
                       <TextInput

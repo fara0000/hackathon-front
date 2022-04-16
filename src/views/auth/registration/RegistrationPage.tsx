@@ -22,14 +22,19 @@ import { successToast } from '../../../components/alerts/success';
 import { errorToast } from '../../../components/alerts/fail';
 import {ProjectDescription} from "../../../components/projectDescription";
 import {BackgroundImages} from "../../../components/bg/BgImages";
+import * as authApi from "../../../api/auth";
 
 const wikiSynagogueUrl = 'https://en.wikipedia.org/wiki/Synagogue';
 
 export const RegistrationPage = observer(() => {
   const bg1 = '#050407';
 
-  const saveUser = async (userData: RegistrationFormValues) => {
-      await authStore.saveUser(userData);
+  const saveUser = async (values: RegistrationFormValues) => {
+      if(values.login && values.password && values.companyName) {
+          await authStore.saveUser(values);
+      } else {
+          errorToast('Пожалуйста заполните все данные!')
+      }
   }
 
   return (
