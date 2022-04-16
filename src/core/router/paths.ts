@@ -5,4 +5,5 @@ export const enum Path {
   MAIN = '/main',
   LIBRARY = '/library',
   EVENT = '/event',
+  SESSIONS = '/sessions',
 }

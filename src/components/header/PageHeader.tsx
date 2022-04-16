@@ -36,18 +36,10 @@ export const PageHeader = observer(() => {
       align="center"
       justify="space-between"
       wrap="wrap"
-      padding={3}
-      pl={5}
-      pr={5}
-      pt={'10px'}
-      bg="#1565c0"
-      color="white"
+      h="64px"
+      bg="#050407"
+      color="#FFFFFF"
     >
-      <Flex align="center" mr={5}>
-        <Heading as="h1" size="lg" color="#fff" letterSpacing={"tighter"}>
-          Virtual Synagogue
-        </Heading>
-      </Flex>
 
       <Box display={{ base: "block", md: "none" }} onClick={handleToggle}>
         <HamburgerIcon />
@@ -58,12 +50,13 @@ export const PageHeader = observer(() => {
         display={{ base: isOpen ? "block" : "none", md: "flex" }}
         width={{ base: "full", md: "auto" }}
         alignItems="center"
+        fontSize="16px"
         flexGrow={1}
         mt={{ base: 4, md: 0 }}
       >
-        <NavigationLink to={Path.MAIN} text="Main" activeStyle={{ borderBottom: '1px solid #fff'}}/>
-        <NavigationLink to={Path.LIBRARY} text="Library" activeStyle={{ borderBottom: '1px solid #fff'}}/>
-        <NavigationLink to={Path.EVENT} text="Events" activeStyle={{ borderBottom: '1px solid #fff'}}/>
+        <NavigationLink ml="49px" to={Path.MAIN} text="Главная" activeStyle={{ borderBottom: '1px solid #fff'}}/>
+        <NavigationLink ml="42px" to={Path.LIBRARY} text="Котировочные сессии" activeStyle={{ borderBottom: '1px solid #fff'}}/>
+        <NavigationLink  ml="42px" to={Path.EVENT} text="Поддержка" activeStyle={{ borderBottom: '1px solid #fff'}}/>
       </Stack>
 
         <Box
@@ -72,18 +65,33 @@ export const PageHeader = observer(() => {
           d={'flex'}
           flexDir="row"
         >
-          <Box>
-            Role: {role || user.role}
-          </Box>
           <Button
-            variant="outline"
-            _hover={{ bg: "white.700"}}
-            _focus={{ bg: "white.700" }}
-            _active={{ bg: "#ccc" }}
-            onClick={logOut}
+              h="27px"
+              borderRadius="4px"
+              w="68px"
+              mr="17px"
+              bg={'#050407'}
+              border='1px'
+              borderColor='#3047FE'
+              _hover={{
+                bg: '#3047FE',
+                border: 'none',
+              }}
           >
-            <Icon as={FaUserAlt} mr="7px"/>
-            <chakra.span fontSize="18px">{user.name || name}</chakra.span>
+            <Text fontSize="14px">Войти</Text>
+          </Button>
+          <Button
+              h="27px"
+              mr="18px"
+              borderRadius="4px"
+              bg={'#3047FE'}
+              _focus={{ bg: "white.700" }}
+              _active={{ bg: "blue" }}
+              _hover={{
+              bg: 'blue.500',
+            }}
+          >
+            <Text fontSize="14px">Зарегистрироваться</Text>
           </Button>
         </Box>
     </Flex>
