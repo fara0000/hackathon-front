@@ -68,7 +68,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
             <Input
               ref={ref}
               id={props.name}
-              type={type === 'date' ? 'date' : type === 'radio' ? 'radio' : (show ? 'text' : 'password')}
+              type={type === 'number' ? 'number' : type === 'radio' ? 'radio' : (show ? 'text' : 'password')}
               rounded="base"
               {...field}
               {...(props as any)}

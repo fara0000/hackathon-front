@@ -16,7 +16,7 @@ import { isBoolean } from 'util';
 import {successToast} from "./components/alerts/success";
 import {errorToast} from "./components/alerts/fail";
 import {SessionsPage} from "./views/session-page/SessionsPage";
-import {Profile} from "./views/profile";
+import {Profile} from "./views/profile/Profile";
 
 // TODO: make authentication for user
 
@@ -65,11 +65,11 @@ export const App = observer(() => {
                     <Route path={Path.LOGIN} exact>
                         <LoginPage />
                     </Route>
-                    {isAuthorized &&
+                    {/*{isAuthorized &&*/}
                         <Route path={Path.PROFILE} exact>
                             <Profile />
                         </Route>
-                    }
+                    {/*}*/}
                     <Route path={Path.REGISTER} exact component={RegistrationPage} />
                     <Route path="*">
                         <Redirect to={Path.NOTFOUND} />
