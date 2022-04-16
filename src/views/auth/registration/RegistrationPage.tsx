@@ -26,26 +26,24 @@ import {BackgroundImages} from "../../../components/bg/BgImages";
 const wikiSynagogueUrl = 'https://en.wikipedia.org/wiki/Synagogue';
 
 export const RegistrationPage = observer(() => {
-  const { isLoading, synagogues } = authStore;
   const bg1 = '#050407';
-  const [isClearSelectField, setIsClearSelectField] = useState(false);
+
+  const saveUser = async (userData: RegistrationFormValues) => {
+      await authStore.saveUser(userData);
+  }
 
   return (
       <Formik<RegistrationFormValues>
         enableReinitialize
         initialValues={{
-          email: ''
+            login: '',
+            companyName: '',
+            password: '',
         }}
-        onSubmit={(values, formikHelpers) => {
+        onSubmit={ async (values, formikHelpers) => {
             console.log(values)
-          // const selectedId = filterSynagogues(values.synagogue, synagogues);
-          // authStore.saveMember(values, selectedId).then((res) => {
-          //   console.log(res, 'res');
-          //   return res?.status === 200 ? successToast(res.data) : errorToast('Oops, please, try again!');
-          // });
-          //
-          // formikHelpers.resetForm();
-          // setIsClearSelectField(true);
+          await saveUser(values);
+          formikHelpers.resetForm();
         }}
       >
         {({ isSubmitting, dirty, isValid, values }) => (
@@ -73,12 +71,12 @@ export const RegistrationPage = observer(() => {
                                 <Stack spacing={3}>
                                     <TextInput
                                         autoComplete="on"
-                                        name='email'
+                                        name='login'
                                         label='E-mail'
                                     />
                                     <TextInput
                                         autoComplete="on"
-                                        name='email'
+                                        name='companyName'
                                         label='Название компании'
                                     />
                                     <TextInput

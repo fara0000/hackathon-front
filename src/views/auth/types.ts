@@ -1,5 +1,5 @@
 export interface RegistrationFormValues {
-  email: string;
+  login: string;
   companyName: string;
   password: string;
 }
@@ -9,9 +9,12 @@ export interface LoginFormInitialValues {
   password: string;
 }
 
-export type UserType = {
-  id: number;
-  name: string;
-  surname: string;
-  role: string;
+export type JwtType = {
+  authToken: string;
+  accessToken: string;
+}
+
+export type AxiosResponse = {
+  code: number | undefined;
+  message: string | undefined;
 }

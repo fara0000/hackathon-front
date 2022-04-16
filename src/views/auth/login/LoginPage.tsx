@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { Path } from '../../../core/router/paths';
-import { LoginFormInitialValues, UserType } from '../types';
+import { LoginFormInitialValues } from '../types';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { TextInput } from '../../../components/input/TextInput';
 import { useBackgroundColor } from '../utils';

@@ -1,28 +1,47 @@
 import { configure, action, isObservable, makeAutoObservable, observable, toJS } from 'mobx';
-import { RegistrationFormValues, UserType } from '../../views/auth/types';
+import {RegistrationFormValues, JwtType, AxiosResponse} from '../../views/auth/types';
 import { observer } from 'mobx-react-lite';
+import * as authApi from '../../api/auth';
 
 class AuthStore {
   user = {
-    id: 0,
-    name: '',
-    role: '',
-    surname: '',
+    authToken: '',
+    accessToken: '',
   };
-  synagogues = [];
   isLoading = false;
   isAuthorized = false;
+  responseStatus: AxiosResponse = {
+    code: undefined,
+    message: '',
+  };
 
   constructor() {
     makeAutoObservable(this);
   }
 
   @action
-  setTokenToLocalStorage = (jwt: string, userInfo: any) => {
-    localStorage.setItem("jwt", jwt);
-    localStorage.setItem("name", userInfo.name);
-    localStorage.setItem("role", userInfo.role);
+  setTokenToLocalStorage = (userInfo: any) => {
+    localStorage.setItem("accessToken", userInfo.accessToken);
+    localStorage.setItem("authToken", userInfo.authToken);
     this.isAuthorized = true;
+  }
+
+  @action
+  saveUser(user: RegistrationFormValues) {
+    return authApi.saveUserApi(user).then(res => {
+      if(res?.status === 200) {
+        this.responseStatus = {
+          code: res.status,
+          message: 'Successfully added'
+        }
+        return res;
+      } else {
+        this.responseStatus = {
+          code: res?.status,
+          message: res?.data
+        }
+      }
+    });
   }
 
   @action
@@ -32,11 +51,10 @@ class AuthStore {
   }
 
   @action
-  setUser = (userData: UserType) => {
-    console.log(userData, 'user');
+  setUser = (jwtData: JwtType) => {
+    console.log(jwtData, 'user');
     this.isLoading = true;
-    this.user = {...userData};
-    console.log(isObservable(this.user), '35')
+    this.user = {...jwtData};
   }
 
   @action

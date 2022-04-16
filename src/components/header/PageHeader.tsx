@@ -73,7 +73,7 @@ export const PageHeader = observer(() => {
           flexDir="row"
         >
           <Box>
-            Role: {role || user.role}
+            Role: {role}
           </Box>
           <Button
             variant="outline"
@@ -83,7 +83,7 @@ export const PageHeader = observer(() => {
             onClick={logOut}
           >
             <Icon as={FaUserAlt} mr="7px"/>
-            <chakra.span fontSize="18px">{user.name || name}</chakra.span>
+            <chakra.span fontSize="18px">{name}</chakra.span>
           </Button>
         </Box>
     </Flex>
