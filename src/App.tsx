@@ -13,6 +13,7 @@ import { NotFoundPage } from './views/notFoundPage/NotFoundPage';
 import { UserType } from './views/auth/types';
 import { observer } from 'mobx-react-lite';
 import { isBoolean } from 'util';
+import {SessionsPage} from "./views/session-page/SessionsPage";
 
 // TODO: make authentication for user
 
@@ -35,6 +36,9 @@ export const App = observer(() => {
                 <Switch>
                     <Route path="/" exact>
                         <RedirectWithQuery to={Path.MAIN} />
+                    </Route>
+                    <Route path={Path.SESSIONS} exact>
+                        <SessionsPage/>
                     </Route>
                     <Route path={Path.MAIN} exact>
                         <MainPage />
