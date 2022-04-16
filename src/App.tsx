@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { routes } from './core/router/routes';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import {BrowserRouter, Redirect, Route, Switch, useHistory} from 'react-router-dom';
 import { PageHeader } from './components/header/PageHeader';
 import { unauthorizedRoutes } from './core/router/unauthorizedRoutes';
 import { RedirectWithQuery } from './core/router/redirectWithQuery';
@@ -16,20 +16,27 @@ import { isBoolean } from 'util';
 import {successToast} from "./components/alerts/success";
 import {errorToast} from "./components/alerts/fail";
 import {SessionsPage} from "./views/session-page/SessionsPage";
+import {Profile} from "./views/profile";
 
 // TODO: make authentication for user
 
 export const App = observer(() => {
     const responseStatus = authStore.responseStatus
-    const jwt = localStorage.getItem('jwt')
+    const access = localStorage.getItem('accessToken');
+    const authToken = localStorage.getItem('authToken');
     const { isAuthorized } = authStore;
+    const history = useHistory();
     // const [userData, setUserData] = useState<UserType>({ id: 0, name: '', surname: '', role: '' });
 
     useEffect(() => {
-        if(jwt) {
+        if(access || authToken) {
             authStore.setIsAuthorized(true);
+        } else {
+            authStore.setIsAuthorized(false);
         }
-    }, [jwt])
+    }, [access, authToken])
+
+    console.log(access, authToken, isAuthorized);
 
     useEffect(() => {
         if (responseStatus.message) {
@@ -43,9 +50,6 @@ export const App = observer(() => {
 
     return (
             <BrowserRouter>
-                <header style={{ zIndex: 6 }}>
-                    <PageHeader />
-                </header>
                 <Switch>
                     <Route path="/" exact>
                         <RedirectWithQuery to={Path.MAIN} />
@@ -61,13 +65,18 @@ export const App = observer(() => {
                     <Route path={Path.LOGIN} exact>
                         <LoginPage />
                     </Route>
+                    {isAuthorized &&
+                        <Route path={Path.PROFILE} exact>
+                            <Profile />
+                        </Route>
+                    }
                     <Route path={Path.REGISTER} exact component={RegistrationPage} />
                     <Route path="*">
                         <Redirect to={Path.NOTFOUND} />
                     </Route>
                 </Switch>
             </BrowserRouter>
-    );
+    )
 });
 
 // return isAuthorized ? (

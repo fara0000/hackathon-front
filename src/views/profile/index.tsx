@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Text, Button } from "@chakra-ui/react";
 import {PageHeader} from "../../components/header/PageHeader";
 
-export const MainPage = () => (
+export const Profile = () => (
     <>
         <header style={{ zIndex: 6 }}>
             <PageHeader />

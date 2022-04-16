@@ -3,7 +3,11 @@ export const enum Path {
   REGISTER = '/register',
   NOTFOUND = '/404',
   MAIN = '/main',
-  LIBRARY = '/library',
-  EVENT = '/event',
   SESSIONS = '/sessions',
+  SESSION = '/session',
+  SUPPORT = '/support',
+  PROFILE = '/profile',
+  PROFILEBETS = 'profile/bets',
+  PROFILEAUTOBETS = 'profile/auto-bets',
+  NOTIFICATIONS = 'profile/notifications'
 }
