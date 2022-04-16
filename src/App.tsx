@@ -15,7 +15,8 @@ import { observer } from 'mobx-react-lite';
 import { isBoolean } from 'util';
 import {successToast} from "./components/alerts/success";
 import {errorToast} from "./components/alerts/fail";
-import {SessionsPage} from "./views/session-page/SessionsPage";
+import {SessionInfoPage} from "./views/session-info/SessionInfoPage";
+import {SessionsPage} from "./views/sessions/SessionsPage";
 
 // TODO: make authentication for user
 
@@ -51,6 +52,10 @@ export const App = observer(() => {
                         <RedirectWithQuery to={Path.MAIN} />
                     </Route>
                     <Route path={Path.SESSIONS} exact>
+                        <SessionInfoPage/>
+                        <SessionsPage/>
+                    </Route>
+                    <Route path={Path.SESSIONSLIST} exact>
                         <SessionsPage/>
                     </Route>
                     <Route path={Path.MAIN} exact>

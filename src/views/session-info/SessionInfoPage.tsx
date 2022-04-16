@@ -1,8 +1,8 @@
 import React from 'react';
 import { Flex, Box, Text, Button } from "@chakra-ui/react";
-import {Session} from "../../components/session/Session";
+import {SessionDescription} from "../../components/sessions/SessionDescription";
 
-export const SessionsPage = () => (
+export const SessionInfoPage = () => (
     <Flex
         h={'calc(100vh - 64px)'}
         bgImage="url('/assets/new_back.jpg')"
@@ -10,7 +10,7 @@ export const SessionsPage = () => (
         backgroundRepeat="no-repeat"
         justify="center"
     >
-        <Session/>
+        <SessionDescription/>
     </Flex>
 
 )

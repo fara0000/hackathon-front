@@ -6,4 +6,5 @@ export const enum Path {
   LIBRARY = '/library',
   EVENT = '/event',
   SESSIONS = '/sessions',
+  SESSIONSLIST = '/list'
 }
