@@ -1,7 +1,6 @@
 import React from 'react';
 import {Box, Text, Button, Flex, Grid, Divider, Stack, chakra, AlertIcon, Alert} from "@chakra-ui/react";
 import {PageHeader} from "../../components/header/PageHeader";
-import {Session} from "../../components/session/Session";
 import CurrencyRubleIcon from "@mui/icons-material/CurrencyRuble";
 import {SettingIcon} from "../../assets/svg/SettingIcon";
 import {BetsIcon} from "../../assets/svg/BetsIcon";

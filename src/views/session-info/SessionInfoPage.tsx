@@ -1,9 +1,9 @@
 import React from 'react';
 import { Flex, Box, Text, Button } from "@chakra-ui/react";
-import {Session} from "../../components/session/Session";
+import {SessionDescription} from "../../components/sessions/SessionDescription";
 import {PageHeader} from "../../components/header/PageHeader";
 
-export const SessionsPage = () => (
+export const SessionInfoPage = () => (
     <>
         <header style={{ zIndex: 6 }}>
             <PageHeader />
@@ -15,7 +15,7 @@ export const SessionsPage = () => (
             backgroundRepeat="no-repeat"
             justify="center"
         >
-            <Session/>
+            <SessionDescription/>
         </Flex>
     </>
 )

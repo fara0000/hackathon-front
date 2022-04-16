@@ -69,7 +69,7 @@ export const PageHeader = observer(() => {
         mt={{ base: 4, md: 0 }}
       >
         <NavigationLink ml="49px" to={Path.MAIN} text="Главная" activeStyle={{ borderBottom: '1px solid #fff'}}/>
-        <NavigationLink ml="42px" to={Path.SESSION} text="Котировочные сессии" activeStyle={{ borderBottom: '1px solid #fff'}}/>
+        <NavigationLink ml="42px" to={Path.SESSIONS} text="Котировочные сессии" activeStyle={{ borderBottom: '1px solid #fff'}}/>
         <NavigationLink  ml="42px" to={Path.SUPPORT} text="Поддержка" activeStyle={{ borderBottom: '1px solid #fff'}}/>
       </Stack>
 

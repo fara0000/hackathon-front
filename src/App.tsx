@@ -15,7 +15,8 @@ import { observer } from 'mobx-react-lite';
 import { isBoolean } from 'util';
 import {successToast} from "./components/alerts/success";
 import {errorToast} from "./components/alerts/fail";
-import {SessionsPage} from "./views/session-page/SessionsPage";
+import {SessionInfoPage} from "./views/session-info/SessionInfoPage";
+import {SessionsPage} from "./views/sessions/SessionsPage";
 import {Profile} from "./views/profile/Profile";
 
 // TODO: make authentication for user
@@ -49,33 +50,37 @@ export const App = observer(() => {
     }, [responseStatus]);
 
     return (
-            <BrowserRouter>
-                <Switch>
-                    <Route path="/" exact>
-                        <RedirectWithQuery to={Path.MAIN} />
-                    </Route>
-                    <Route path={Path.SESSIONS} exact>
-                        <SessionsPage/>
-                    </Route>
-                    <Route path={Path.MAIN} exact>
-                        <MainPage />
-                    </Route>
-                    <Route path={Path.NOTFOUND} component={NotFoundPage} />
+        <BrowserRouter>
+            <Switch>
+                <Route path="/" exact>
+                    <RedirectWithQuery to={Path.MAIN} />
+                </Route>
+                <Route path={Path.SESSIONS} exact>
+                    <SessionInfoPage/>
+                    <SessionsPage/>
+                </Route>
+                <Route path={Path.SESSIONSLIST} exact>
+                    <SessionsPage/>
+                </Route>
+                <Route path={Path.MAIN} exact>
+                    <MainPage />
+                </Route>
+                <Route path={Path.NOTFOUND} component={NotFoundPage} />
 
-                    <Route path={Path.LOGIN} exact>
-                        <LoginPage />
-                    </Route>
-                    {/*{isAuthorized &&*/}
-                        <Route path={Path.PROFILE} exact>
-                            <Profile />
-                        </Route>
-                    {/*}*/}
-                    <Route path={Path.REGISTER} exact component={RegistrationPage} />
-                    <Route path="*">
-                        <Redirect to={Path.NOTFOUND} />
-                    </Route>
-                </Switch>
-            </BrowserRouter>
+                <Route path={Path.LOGIN} exact>
+                    <LoginPage />
+                </Route>
+                {/*{isAuthorized &&*/}
+                <Route path={Path.PROFILE} exact>
+                    <Profile />
+                </Route>
+                {/*}*/}
+                <Route path={Path.REGISTER} exact component={RegistrationPage} />
+                <Route path="*">
+                    <Redirect to={Path.NOTFOUND} />
+                </Route>
+            </Switch>
+        </BrowserRouter>
     )
 });
 

@@ -4,7 +4,7 @@ export const enum Path {
   NOTFOUND = '/404',
   MAIN = '/main',
   SESSIONS = '/sessions',
-  SESSION = '/session',
+  SESSIONSLIST = '/list',
   SUPPORT = '/support',
   PROFILE = '/profile',
   PROFILEBETS = 'profile/bets',
