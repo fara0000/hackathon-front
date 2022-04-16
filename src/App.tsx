@@ -15,6 +15,7 @@ import { observer } from 'mobx-react-lite';
 import { isBoolean } from 'util';
 import {successToast} from "./components/alerts/success";
 import {errorToast} from "./components/alerts/fail";
+import {SessionsPage} from "./views/session-page/SessionsPage";
 
 // TODO: make authentication for user
 
@@ -42,12 +43,15 @@ export const App = observer(() => {
 
     return (
             <BrowserRouter>
-                {/*<header style={{ zIndex: 6 }}>*/}
-                {/*    <PageHeader />*/}
-                {/*</header>*/}
+                <header style={{ zIndex: 6 }}>
+                    <PageHeader />
+                </header>
                 <Switch>
                     <Route path="/" exact>
                         <RedirectWithQuery to={Path.MAIN} />
+                    </Route>
+                    <Route path={Path.SESSIONS} exact>
+                        <SessionsPage/>
                     </Route>
                     <Route path={Path.MAIN} exact>
                         <MainPage />
