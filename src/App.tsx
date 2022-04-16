@@ -10,14 +10,17 @@ import { MainPage } from "./views/main/MainPage";
 import { LoginPage } from './views/auth/login/LoginPage';
 import { RegistrationPage } from './views/auth/registration/RegistrationPage';
 import { NotFoundPage } from './views/notFoundPage/NotFoundPage';
-import { UserType } from './views/auth/types';
+import { JwtType } from './views/auth/types';
 import { observer } from 'mobx-react-lite';
 import { isBoolean } from 'util';
+import {successToast} from "./components/alerts/success";
+import {errorToast} from "./components/alerts/fail";
 import {SessionsPage} from "./views/session-page/SessionsPage";
 
 // TODO: make authentication for user
 
 export const App = observer(() => {
+    const responseStatus = authStore.responseStatus
     const jwt = localStorage.getItem('jwt')
     const { isAuthorized } = authStore;
     // const [userData, setUserData] = useState<UserType>({ id: 0, name: '', surname: '', role: '' });
@@ -27,6 +30,16 @@ export const App = observer(() => {
             authStore.setIsAuthorized(true);
         }
     }, [jwt])
+
+    useEffect(() => {
+        if (responseStatus.message) {
+            if (responseStatus.code === 200) {
+                successToast(responseStatus.message);
+            } else {
+                errorToast(responseStatus.message);
+            }
+        }
+    }, [responseStatus]);
 
     return (
             <BrowserRouter>
