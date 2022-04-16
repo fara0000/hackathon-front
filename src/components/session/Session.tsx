@@ -25,7 +25,7 @@ export const Session = () => (
             <Button
                 h="27px"
                 ml='42px'
-                mt='158px'
+                mt='157px'
                 borderRadius="4px"
                 bg={'#3047FE'}
                 _focus={{ bg: "white.700" }}
@@ -80,10 +80,20 @@ export const Session = () => (
                 w='349'
             >
                 <Box mt='20px' mr='105px'>
-                    <Text fontSize='14px'>15 000</Text>
+                    <Flex>
+                        <Text fontSize='14px'>15 000</Text>
+                        <Box color='#3047FE' fontSize='small'>
+                            <CurrencyRubleIcon/>
+                        </Box>
+                    </Flex>
                 </Box>
                 <Box mt='20px' mr='27'>
-                    <Text fontSize='14px'>5</Text>
+                    <Flex>
+                        <Text fontSize='14px'>5</Text>
+                        <Box color='#3047FE' fontSize='small'>
+                            <CurrencyRubleIcon/>
+                        </Box>
+                    </Flex>
                 </Box>
             </Flex>
             <Box>
