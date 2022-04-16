@@ -4,6 +4,13 @@ export interface RegistrationFormValues {
   password: string;
 }
 
+export interface ProfileInfoValues {
+  email: string;
+  companyName: string;
+  accessKey: string;
+  notificationDelay: any;
+}
+
 export interface LoginFormInitialValues {
   login: string;
   password: string;
