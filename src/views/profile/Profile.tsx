@@ -21,7 +21,7 @@ import {SettingProfile} from "./components/SettingProfile";
 import {observer} from "mobx-react-lite";
 import profileStore from "../../store/profile";
 import {YourBets} from "./components/YourBets";
-import {AutoBets} from "./components/AutoBets";
+import {AutoBets} from "./components/autobets/AutoBets";
 import {NotificationJournalComponent} from "./components/NotificationJournal";
 
 export const Profile = observer(() => {
@@ -40,7 +40,7 @@ export const Profile = observer(() => {
             >
                 <Flex
                     w='890px'
-                    h='523px'
+                    h='550px'
                     bg={'#050407'}
                     color={"#FFFFFF"}
                     position='absolute'

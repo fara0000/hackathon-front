@@ -7,13 +7,8 @@ export const updateTokenUserUrl = `${domainUrl}/auth/update/token`;
 export const updatePasswordUserUrl = `${domainUrl}/auth/update/password`;
 //sessionsDescriptions
 export const getAutoSessions = `${domainUrl}/customer/auto/sessions`;
-
-//sessions
-
-
-
-
-
+//activeSessions
+export const getActiveSessions = `${domainUrl}/customer/session/active`
 //profile
 export const getProfileInfo = `${domainUrl}/customer/profile`;
 export const sendProfileInfo = `${domainUrl}/customer/profile/save`;
