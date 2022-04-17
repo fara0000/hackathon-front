@@ -1,11 +1,23 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { Box, Text, Button, Flex, Grid } from "@chakra-ui/react";
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 import {ModalManual} from "../../modals/ModalManual";
 import {ModalBot} from "../../modals/ModalBot";
 
-export function Session(){
-    let value = 14120.20;
+interface Props {
+    bet: number,
+    currentPrice: number,
+    customerName: string,
+    end: string,
+    id: number,
+    lastCustomerBet: string,
+    location: string,
+    sessionName: string,
+    start: string,
+    status: string
+}
+
+export const Session: FC<Props> = ({ start, end, location, lastCustomerBet, bet,sessionName, customerName, currentPrice, id }) => {
  return (
     <Flex
         as="section"
@@ -21,25 +33,13 @@ export function Session(){
 
     >
         <Box w='435px' h='46px' >
-            <Text ml='50px' mt='42px' fontSize='24px'>Сессия №1 - тут будет полное название </Text>
-            <Text ml='50px' fontSize='14px' mt='3px'>Котировочная сессия 98989</Text>
+            <Text ml='50px' mt='42px' fontSize='24px'>{sessionName} </Text>
+            <Text ml='50px' fontSize='14px' mt='3px'>Котировочная сессия {id}</Text>
             <Text ml='50px' mt='33px' w='64px' h='17px' fontSize='14px'>Заказчик</Text>
-            <Text ml='50px' fontSize='20px'>Государственное учреждение такое-то</Text>
-            <Text ml='50px' mt='13px' fontSize='14px'>С 15.04.2022 по 18.04.2022 14:22 (МСК)</Text>
-            <Button
-                h="27px"
-                ml='42px'
-                mt='157px'
-                borderRadius="4px"
-                bg={'#3047FE'}
-                _focus={{ bg: "white.700" }}
-                _active={{ bg: "blue" }}
-                _hover={{
-                    bg: 'blue.500',
-                }}
-            >
-                <Text fontSize="14px">Зарегистрироваться</Text>
-            </Button>
+            <Text ml='50px' fontSize='20px'>{customerName}</Text>
+            <Text ml='50px' mt='13px' fontSize='14px'>С {start.slice(0, 10)} по {end.slice(0    , 10)}</Text>
+            <Text ml='50px' mt='3px' fontSize='14px'>{location}</Text>
+
         </Box>
         <Box>
             <Text mt='52px' mr='105px' fontSize='14px'>До окончания сессии</Text>
@@ -70,7 +70,7 @@ export function Session(){
                     <Text fontSize='24px'
                           align='center'
                     >
-                        14 120.20
+                        {currentPrice}
                     </Text>
                     <Box mt='5px' color='#3047FE' h='24px'>
                         <CurrencyRubleIcon/>
@@ -85,7 +85,7 @@ export function Session(){
             >
                 <Box mt='20px' mr='105px'>
                     <Flex>
-                        <Text fontSize='14px'>15 000</Text>
+                        <Text fontSize='14px'>{lastCustomerBet}</Text>
                         <Box color='#3047FE' fontSize='small'>
                             <CurrencyRubleIcon/>
                         </Box>
@@ -93,7 +93,7 @@ export function Session(){
                 </Box>
                 <Box mt='20px' mr='27'>
                     <Flex>
-                        <Text fontSize='14px'>5</Text>
+                        <Text fontSize='14px'>{bet}</Text>
                         <Box color='#3047FE' fontSize='small'>
                             <CurrencyRubleIcon/>
                         </Box>
@@ -101,10 +101,12 @@ export function Session(){
                 </Box>
             </Flex>
             <Box>
-                <ModalManual value={value}/>
+                <ModalManual value={currentPrice}/>
             </Box>
             <Box>
-                <ModalBot/>
+                <ModalBot
+                    id={id}
+                />
             </Box>
         </Box>
     </Flex>

@@ -14,13 +14,32 @@ import React, {FC, useState} from 'react';
 import { IconType } from 'react-icons/lib';
 import { getChakraPortalProps } from '../core/chakra/chakraProvider';
 import CurrencyRubleIcon from "@mui/icons-material/CurrencyRuble";
+import {startBotData} from "../api/session";
+import {successToast} from "../components/alerts/success";
+import {errorToast} from "../components/alerts/fail";
 
 interface ModalManualProps {
-    value: any;
+    id: any;
 }
 
-export const ModalBot = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+export const ModalBot: FC<ModalManualProps> = ({id}) => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const token = localStorage.getItem('authToken')
+    const [ inputValue, setInputValue ] = useState('');
+
+    function send() {
+        startBotData(token, id, {minPay: +inputValue, id: null, priority: 0, timeDelay: '00:20:00'}).then(res => {
+            console.log(res);
+            if (res.status === 200) {
+                    successToast('Ура, Бот запустился!!!');
+                } else {
+                    errorToast(res.message);
+                }
+            setInputValue('');
+            onClose();
+        })
+    }
+
     return (
         <Box>
             <Button
@@ -44,10 +63,13 @@ export const ModalBot = () => {
                     Запустить в <br/> автоматическом режиме
                 </Text>
             </Button>
-            <Modal isOpen={isOpen} onClose={onClose}>
+            <Modal isOpen={isOpen} onClose={() => {
+                onClose();
+                setInputValue('');
+            }}>
                 <ModalOverlay opacity='0.1' />
                 <ModalContent
-                    mt='120px'
+                    mt='70px'
                     w='699px'
                     h='578px'
                     borderRadius="4px"
@@ -100,6 +122,8 @@ export const ModalBot = () => {
                                                 color={'#3047FE'}
                                                 fontSize='24px'
                                                 variant='unstyled'
+                                                onChange={(e) => setInputValue(e.target.value)}
+                                                value={inputValue}
                                             >
                                             </Input>
                                             <Box mt='5px' color='#3047FE' h='24px'>
@@ -116,7 +140,7 @@ export const ModalBot = () => {
                     </ModalBody>
                     <ModalFooter mb='15px' pt='0px'>
                         <Button
-                            onClick={onClose}
+                            onClick={send}
                             h="37px"
                             w='222px'
                             mr='27px'
@@ -132,7 +156,10 @@ export const ModalBot = () => {
                             <Text fontSize="14px">Принять условия</Text>
                         </Button>
                         <Button
-                            onClick={onClose}
+                            onClick={() => {
+                                onClose();
+                                setInputValue('');
+                            }}
                             h="37px"
                             w='222px'
                             mr='27px'

@@ -58,7 +58,7 @@ export const App = observer(() => {
                 <Route path={Path.SESSIONS} exact>
                     <SessionInfoPage/>
                 </Route>
-                <Route path={Path.SESSIONSLIST} exact>
+                <Route path={Path.SESSIONS + '/:id'} exact>
                     <SessionsPage/>
                 </Route>
                 <Route path={Path.MAIN} exact>
@@ -82,48 +82,3 @@ export const App = observer(() => {
         </BrowserRouter>
     )
 });
-
-// return isAuthorized ? (
-//         <BrowserRouter>
-//             {/*<header style={{ zIndex: 6 }}>*/}
-//             {/*    <PageHeader />*/}
-//             {/*</header>*/}
-//             <Switch>
-//                 <Route path="/" exact>
-//                     <RedirectWithQuery to={Path.MAIN} />
-//                 </Route>
-//                 <Route path="/login" exact>
-//                     <RedirectWithQuery to={Path.MAIN} />
-//                 </Route>
-//                 <Route path="/register" exact>
-//                     <RedirectWithQuery to={Path.MAIN} />
-//                 </Route>
-//                 <Route path={Path.MAIN} exact>
-//                     <MainPage />
-//                 </Route>
-//                 <Route path={Path.NOTFOUND} component={NotFoundPage} />
-//
-//                 <Route path="*">
-//                     <Redirect to={Path.NOTFOUND} />
-//                 </Route>
-//             </Switch>
-//         </BrowserRouter>
-//     ) :
-//     <BrowserRouter>
-//         <Switch>
-//             <Route path={Path.LOGIN} exact>
-//                 <LoginPage />
-//             </Route>
-//             <Route path={Path.REGISTER} exact component={RegistrationPage} />
-//             <Route path="/" exact>
-//                 <RedirectWithQuery to={Path.LOGIN} />
-//             </Route>
-//             <Route path={Path.NOTFOUND} component={NotFoundPage} />
-//             {!jwt &&
-//             <Route path="*">
-//                 <Redirect to={Path.NOTFOUND} />
-//             </Route>
-//             }
-//         </Switch>
-//     </BrowserRouter>
-

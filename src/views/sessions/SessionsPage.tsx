@@ -7,6 +7,7 @@ import {Session} from "../../components/sessions/Session";
 import {PageHeader} from "../../components/header/PageHeader";
 
 export const SessionsPage = observer(() => {
+    const { isLoading, session } = sessionStore;
 
     return (
         <>
@@ -20,7 +21,20 @@ export const SessionsPage = observer(() => {
                 backgroundRepeat="no-repeat"
                 justify="center"
             >
-                <Session />
+                { isLoading &&
+                    <Session
+                        bet={session.bet}
+                        currentPrice={session.currentPrice}
+                        customerName={session.customerName}
+                        end={session.end}
+                        id={session.id}
+                        lastCustomerBet={session.lastCustomerBet}
+                        location={session.location}
+                        sessionName={session.sessionName}
+                        start={session.start}
+                        status={session.status}
+                    />
+                }
             </Flex>
         </>
     )

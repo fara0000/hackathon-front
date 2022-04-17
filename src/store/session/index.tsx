@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite';
 import * as sessionApi from '../../api/session';
 import { useHistory } from "react-router-dom";
 import { errorToast } from "../../components/alerts/fail";
+import {getActiveSessionIdApi} from "../../api/session";
 
 const sessionObj = {
     bet: 0,
@@ -34,10 +35,32 @@ export interface session {
 class SessionsStore {
     sessionData: session[] = [];
     isLoading = false;
+    session: session = {
+        bet: 0,
+        currentPrice: 0,
+        customerName: "",
+        end: "",
+        id: 0,
+        lastCustomerBet: "",
+        location: "",
+        sessionName: "",
+        start: "",
+        status: ""
+    };
 
     constructor() {
         makeAutoObservable(this);
         this.getSessionData()
+    }
+
+    @action
+    getSessionId = async (id: number) => {
+        const authToken = localStorage.getItem('authToken');
+        this.isLoading = true;
+        return getActiveSessionIdApi(authToken, id).then(res => {
+            console.log(res);
+            this.session = {...res}
+        })
     }
 
     @action

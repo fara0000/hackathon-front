@@ -21,7 +21,7 @@ export const NotFoundPage = () => {
         The page you're looking for does not seem to exist
       </Text>
 
-      <RouterLink to={Path.LOGIN}>
+      <RouterLink to={Path.MAIN}>
         <Button
           colorScheme="teal"
           bgGradient="linear(to-r, teal.400, teal.500, teal.600)"
