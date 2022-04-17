@@ -109,6 +109,7 @@ export const LoginPage: FC = observer(() => {
                           autoComplete="on"
                           name='password'
                           label='Пароль'
+                          type='password'
                       />
                       <Stack spacing={4}>
                         <Stack

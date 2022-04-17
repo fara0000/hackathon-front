@@ -88,6 +88,7 @@ export const RegistrationPage = observer(() => {
                                         autoComplete="on"
                                         name='password'
                                         label='Пароль'
+                                        type='password'
                                     />
                                     <Stack spacing={4}>
                                         <Button

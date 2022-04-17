@@ -29,18 +29,13 @@ export const AutoBetsItem: FC<AutoBetsItemProps> = ({ index, id, sessionName, cu
     console.log(botSettingDto.priority, 'prr')
     return (
         <Flex w="100%">
-            <Flex alignItems="center">
-                {botSettingDto.priority === 1 ?
-                    <Text>!!!</Text> : (botSettingDto.priority === 2 ? <Text>!!</Text> : (botSettingDto.priority === 3 ? <Text>!</Text> : null))
-                }
-            </Flex>
             <Flex w="100%" p="7px 0 0" alignItems="center">
                 <Flex border="1px solid #FFFFFF" w="568px" h="101px" borderRadius="6px" cursor="pointer" mt="9px" ml={"10px"} justifyContent="center">
                     <Flex flexDir="column" alignItems="center" justifyContent="center" ml="5px">
                         <Text fontSize="16px" color="#3047FE" fontWeight="600" cursor="pointer" onClick={() => setUpState({id, index})}>
                             up
                         </Text>
-                        <Text fontSize="16px" color="#3047FE" fontWeight="600" cursor="pointer" onClick={() => setDownState({id, index})}>
+                        <Text fontSize="16px" color="#3047FE" fontWeight="600" cursor="pointer">
                             down
                         </Text>
                     </Flex>

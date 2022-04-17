@@ -7,6 +7,8 @@ import {observer} from "mobx-react-lite";
 import activeSessionsStore from '../../../../store/activeSessions';
 import {observable} from "mobx";
 import {AutoBetsItem} from "./components/AutoBetsItem";
+import {startBotData} from "../../../../api/session";
+import {getAutoSessions} from "../../../../api/urls";
 
 export const PriorityBets = () => {
     return (
@@ -38,6 +40,7 @@ export const PriorityBets = () => {
 
 
 export const AllBets = observer(() => {
+    const token = localStorage.getItem('authToken')
     const { activeSessionsList, isLoading } = activeSessionsStore;
     const [ upState, setUpState ] = useState({id: 0, index: 0})
     const [ downState, setDownState ] = useState({id: 0, index: 0})
@@ -45,9 +48,7 @@ export const AllBets = observer(() => {
     const swapUp = (state: any) => {
        activeSessionsList.map((item: any, index: number) => {
             if(state.id === item.id) {
-                if(item.botSettingDto.priority || activeSessionsList[index - 1].botSettingDto.priority) {
-                    console.log(activeSessionsList[index].botSettingDto.priority, '1')
-                    console.log(activeSessionsList[index - 1].botSettingDto.priority, '2')
+                if(item.botSettingDto.priority > 0 || activeSessionsList[index - 1].botSettingDto.priority > 0) {
                     let prev = activeSessionsList[index]
                     activeSessionsList[index] = activeSessionsList[index - 1];
                     activeSessionsList[index].botSettingDto.priority = activeSessionsList[index - 1].botSettingDto.priority
@@ -55,8 +56,19 @@ export const AllBets = observer(() => {
                     activeSessionsList[index - 1] = prev
                     activeSessionsList[index - 1].botSettingDto.priority = prev.botSettingDto.priority
                     activeSessionsList[index - 1].botSettingDto.timeDelay = prev.botSettingDto.timeDelay
-                    console.log(activeSessionsList[index].botSettingDto.priority, '3')
-                    console.log(activeSessionsList[index - 1].botSettingDto.priority, '4')
+                    startBotData(token, activeSessionsList[index].id, {
+                        id: activeSessionsList[index].botSettingDto.id,
+                        minPay: activeSessionsList[index - 1].botSettingDto.minPay,
+                        priority: activeSessionsList[index - 1].botSettingDto.priority,
+                        timeDelay: activeSessionsList[index - 1].botSettingDto.timeDelay
+                    })
+                    startBotData(token, activeSessionsList[index - 1].id, {
+                        id: activeSessionsList[index - 1].botSettingDto.id,
+                        minPay: activeSessionsList[index].botSettingDto.minPay,
+                        priority: activeSessionsList[index].botSettingDto.priority,
+                        timeDelay: activeSessionsList[index].botSettingDto.timeDelay
+                    })
+                    activeSessionsStore.getActiveSessionsInfo();
                 } else {
                     let prev = activeSessionsList[index]
                     activeSessionsList[index] = activeSessionsList[index - 1];
@@ -83,8 +95,14 @@ export const AllBets = observer(() => {
     }, [upState])
 
     useEffect(() => {
-        swapDown(downState)
-    }, [downState])
+        setTimeout(() => {
+            activeSessionsStore.getActiveSessionsInfo();
+        }, 50000)
+    })
+
+    // useEffect(() => {
+    //     swapDown(downState)
+    // }, [downState])
 
     return (
         <Flex h="100%" flexDir="column" overflowY="scroll" mt="13px" ml="30px">

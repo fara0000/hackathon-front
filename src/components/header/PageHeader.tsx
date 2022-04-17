@@ -10,6 +10,7 @@ import {
   chakra, MenuList, MenuItem, Menu, MenuButton,
     Divider
 } from '@chakra-ui/react';
+import profileStore from '../../store/profile';
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { NavigationLink } from '../navigationLink/NavigationLink';
 import { Path } from '../../core/router/paths';
@@ -141,6 +142,10 @@ export const PageHeader = observer(() => {
                         color={'#fff'}
                         w="135px"
                         mt="11px"
+                        onClick={() => {
+                          history.push('/profile')
+                          profileStore.setAutoBetsActive();
+                        }}
                     >
                       <Text fontSize="16px" lineHeight="20px" _hover={{ borderBottom: "1px solid #fff" }}>
                         Ваши ставки
