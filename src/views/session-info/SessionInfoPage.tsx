@@ -1,7 +1,9 @@
 import React from 'react';
 import { Flex, Box, Text, Button } from "@chakra-ui/react";
 import {SessionDescription} from "../../components/sessions/SessionDescription";
+import {Session} from "../../components/sessions/Session";
 import {PageHeader} from "../../components/header/PageHeader";
+import {ModalManual} from "../../modals/ModalManual";
 
 export const SessionInfoPage = () => (
     <>
@@ -15,7 +17,7 @@ export const SessionInfoPage = () => (
             backgroundRepeat="no-repeat"
             justify="center"
         >
-            <SessionDescription/>
+            <Session></Session>
         </Flex>
     </>
 )

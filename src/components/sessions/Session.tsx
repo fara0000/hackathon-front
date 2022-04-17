@@ -1,8 +1,12 @@
 import React from 'react';
 import { Box, Text, Button, Flex, Grid } from "@chakra-ui/react";
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
+import {ModalManual} from "../../modals/ModalManual";
+import {ModalBot} from "../../modals/ModalBot";
 
-export const Session = () => (
+export function Session(){
+    let value = 14120.20;
+ return (
     <Flex
         as="section"
         justify="space-between"
@@ -97,44 +101,11 @@ export const Session = () => (
                 </Box>
             </Flex>
             <Box>
-                <Button
-                    h="37px"
-                    w='222px'
-                    mr='27px'
-                    mt='24px'
-                    borderRadius="4px"
-                    bg={'#3047FE'}
-                    _focus={{ bg: "white.700" }}
-                    _active={{ bg: "blue" }}
-                    _hover={{
-                        bg: 'blue.500',
-                    }}
-                >
-                    <Text fontSize="14px">Поставить ставку</Text>
-                </Button>
+                <ModalManual value={value}/>
             </Box>
             <Box>
-                <Button
-                    h="44px"
-                    w='222px'
-                    mr='27px'
-                    mt='13px'
-                    borderRadius="4px"
-                    border='1px'
-                    borderColor='#3047FE'
-                    bg={'#050407'}
-                    _focus={{ bg: "white.700" }}
-                    _active={{ bg: "blue" }}
-                    _hover={{
-                        bg: '#3047FE',
-                        border: 'none',
-                    }}
-                >
-                    <Text align='center' mr='11px' ml='20px' mt='5px' mb='5px' w='191px' h='34px' fontSize="14px">
-                        Запустить в <br/> автоматическом режиме
-                    </Text>
-                </Button>
+                <ModalBot/>
             </Box>
         </Box>
     </Flex>
-)
+)}
