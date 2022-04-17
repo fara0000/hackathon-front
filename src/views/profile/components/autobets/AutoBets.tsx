@@ -45,7 +45,7 @@ export const AllBets = observer(() => {
     }, [isLoading, activeSessionsList])
 
     return (
-        <Flex h="100%" flexDir="column" overflowY="scroll" mt="13px" ml="50px">
+        <Flex h="100%" flexDir="column" overflowY="scroll" mt="13px" ml="30px">
             {
                 activeSessionsList?.map((item: any) => <AutoBetsItem
                     sessionName={item.sessionName}
