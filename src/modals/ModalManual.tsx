@@ -42,9 +42,9 @@ export const ModalManual: FC<ModalManualProps> = ({value}) => {
             </Button>
 
             <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay opacity='0.1' />
+                <ModalOverlay style={{opacity: '0.9'}} />
                 <ModalContent
-                    mt='200px'
+                    mt='100px'
                     w='519px'
                     h='458px'
                     borderRadius="4px"
