@@ -37,11 +37,15 @@ class SessionsStore {
 
     constructor() {
         makeAutoObservable(this);
+        this.getSessionData()
     }
 
     @action
-    getSessionData = (token: string | null) => {
-        return sessionApi.getSessionApi(token).then(res => res);
+    getSessionData = async () => {
+        const token = localStorage.getItem('authToken');
+        this.isLoading = true;
+        return sessionApi.getActiveSessionApi(token).then(res => this.sessionData = [...res]);
+        this.isLoading = false;
     }
 }
 

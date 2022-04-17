@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form, Formik} from "formik";
 import {ProfileInfoValues} from "../../../auth/types";
 import {TextInput} from "../../../../components/input/TextInput";
@@ -39,15 +39,58 @@ export const PriorityBets = () => {
 
 export const AllBets = observer(() => {
     const { activeSessionsList, isLoading } = activeSessionsStore;
+    const [ upState, setUpState ] = useState({id: 0, index: 0})
+    const [ downState, setDownState ] = useState({id: 0, index: 0})
+
+    const swapUp = (state: any) => {
+       activeSessionsList.map((item: any, index: number) => {
+            if(state.id === item.id) {
+                if(item.botSettingDto.priority || activeSessionsList[index - 1].botSettingDto.priority) {
+                    console.log(activeSessionsList[index].botSettingDto.priority, '1')
+                    console.log(activeSessionsList[index - 1].botSettingDto.priority, '2')
+                    let prev = activeSessionsList[index]
+                    activeSessionsList[index] = activeSessionsList[index - 1];
+                    activeSessionsList[index].botSettingDto.priority = activeSessionsList[index - 1].botSettingDto.priority
+                    activeSessionsList[index].botSettingDto.timeDelay = activeSessionsList[index - 1].botSettingDto.timeDelay
+                    activeSessionsList[index - 1] = prev
+                    activeSessionsList[index - 1].botSettingDto.priority = prev.botSettingDto.priority
+                    activeSessionsList[index - 1].botSettingDto.timeDelay = prev.botSettingDto.timeDelay
+                    console.log(activeSessionsList[index].botSettingDto.priority, '3')
+                    console.log(activeSessionsList[index - 1].botSettingDto.priority, '4')
+                } else {
+                    let prev = activeSessionsList[index]
+                    activeSessionsList[index] = activeSessionsList[index - 1];
+                    activeSessionsList[index - 1] = prev
+                }
+            }
+        })
+        console.log(activeSessionsList.map((item: any) => item.id));
+    }
+
+    const swapDown = (state: any) => {
+        activeSessionsList.map((item: any, index: number) => {
+            if(state.id === item.id) {
+                let prev = activeSessionsList[index]
+                activeSessionsList[index] = activeSessionsList[index + 1];
+                activeSessionsList[index + 1] = prev
+            }
+        })
+        // console.log(activeSessionsList.map((item: any) => item.id));
+    }
 
     useEffect(() => {
-        isLoading && console.log(activeSessionsList, 'list')
-    }, [isLoading, activeSessionsList])
+        swapUp(upState)
+    }, [upState])
+
+    useEffect(() => {
+        swapDown(downState)
+    }, [downState])
 
     return (
         <Flex h="100%" flexDir="column" overflowY="scroll" mt="13px" ml="30px">
             {
-                activeSessionsList?.map((item: any) => <AutoBetsItem
+                activeSessionsList?.map((item: any, index: number) => <AutoBetsItem
+                    botSettingDto={item.botSettingDto}
                     sessionName={item.sessionName}
                     key={item.id}
                     currentPrice={item.currentPrice}
@@ -59,6 +102,9 @@ export const AllBets = observer(() => {
                     status={item.status}
                     id={item.id}
                     bet={item.bet}
+                    setUpState={setUpState}
+                    setDownState={setDownState}
+                    index={index}
                 />)
             }
         </Flex>

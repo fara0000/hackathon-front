@@ -15,9 +15,9 @@ import { observer } from 'mobx-react-lite';
 import { isBoolean } from 'util';
 import {successToast} from "./components/alerts/success";
 import {errorToast} from "./components/alerts/fail";
-import {SessionInfoPage} from "./views/session-info/SessionInfoPage";
 import {SessionsPage} from "./views/sessions/SessionsPage";
 import {Profile} from "./views/profile/Profile";
+import {SessionInfoPage} from "./views/session-info/SessionInfoPage";
 
 // TODO: make authentication for user
 
@@ -57,7 +57,6 @@ export const App = observer(() => {
                 </Route>
                 <Route path={Path.SESSIONS} exact>
                     <SessionInfoPage/>
-                    <SessionsPage/>
                 </Route>
                 <Route path={Path.SESSIONSLIST} exact>
                     <SessionsPage/>

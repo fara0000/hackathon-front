@@ -7,16 +7,6 @@ import {Session} from "../../components/sessions/Session";
 import {PageHeader} from "../../components/header/PageHeader";
 
 export const SessionsPage = observer(() => {
-    const [data, setData] = useState([]);
-    const token = localStorage.getItem('authToken');
-
-    useEffect(() => {
-        sessionStore.getSessionData(token).then(res => {
-            setData(res);
-        })
-    }, [])
-
-    console.log(sessionStore.sessionData)
 
     return (
         <>
@@ -30,7 +20,7 @@ export const SessionsPage = observer(() => {
                 backgroundRepeat="no-repeat"
                 justify="center"
             >
-                <Session/>
+                <Session />
             </Flex>
         </>
     )

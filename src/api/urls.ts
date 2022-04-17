@@ -9,6 +9,7 @@ export const updatePasswordUserUrl = `${domainUrl}/auth/update/password`;
 export const getAutoSessions = `${domainUrl}/customer/auto/sessions`;
 //activeSessions
 export const getActiveSessions = `${domainUrl}/customer/session/active`
+export const sendActiveSessions = `${domainUrl}/bot/session`
 //profile
 export const getProfileInfo = `${domainUrl}/customer/profile`;
 export const sendProfileInfo = `${domainUrl}/customer/profile/save`;
