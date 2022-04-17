@@ -1,36 +1,34 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { Box, Text, Button, Flex, Grid } from "@chakra-ui/react";
+import {botSession, sessionsType} from "../../types";
 
-export const SessionDescription = () => (
+export const SessionDescription : FC<sessionsType> = ({ id, status, sessionName, customerName, location, start, end, bet }) => (
     <Flex
-        as="section"
         justify="space-between"
-        wrap="wrap"
         w='784px'
-        h='132px'
+        h='142px'
         bg={'#050407'}
         color={"#FFFFFF"}
-        position='absolute'
-        mt='52px'
+        mt='42px'
         borderRadius="6px"
     >
         <Box w='392px' ml='23px' >
-            <Text mt='21px' fontSize='20px'>Сессия №1</Text>
-            <Text fontSize='14px' mt='2px'>Описание учреждения, объявившего сессию</Text>
+            <Text fontSize='20px'>{sessionName}</Text>
+            <Text fontSize='14px' mt='2px'>{customerName}</Text>
             <Flex
                 justify="center"
             >
                 <Box>
 
                 </Box>
-                <Text mt='21px' w='392px' h='17px' fontSize='14px'>С 15.04.2022 по 18.04.2022 14:22 (МСК)</Text>
+                <Text w='392px' h='17px' fontSize='14px'>`${start}` по `${end}`</Text>
             </Flex>
         </Box>
         <Box mr='14px'>
             <Flex
                 justify="center"
             >
-                <Text mt='26px' mr='15px' fontSize='14px'>Котировочная сессия 98989</Text>
+                <Text mt='26px' mr='15px' fontSize='14px'>Котировочная сессия {id}</Text>
                 <Box
                     borderRadius="4px"
                     border='1px'
@@ -38,7 +36,7 @@ export const SessionDescription = () => (
                     bg={'#050407'}
                     h='24px'
                     w='108px'
-                    mt='24px'
+                    mt='16px'
                 >
                     <Flex
                         justify="center"
@@ -46,7 +44,7 @@ export const SessionDescription = () => (
                         <Box>
 
                         </Box>
-                        <Text w='65px' h='17px' fontSize='14px'>Активная</Text>
+                        <Text w='65px' h='17px' fontSize='14px'>{status}</Text>
                     </Flex>
                 </Box>
             </Flex>
@@ -57,8 +55,8 @@ export const SessionDescription = () => (
                 <Box>
 
                 </Box>
-                <Text align='right' w='148px' h='17px' fontSize='14px'>г. Санкт-Петербург</Text>
+                <Text align='right' w='148px' h='17px' fontSize='14px'>{location}</Text>
             </Flex>
         </Box>
     </Flex>
-)
+);
