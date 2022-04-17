@@ -59,4 +59,4 @@ export const SessionDescription : FC<sessionsType> = ({ id, status, sessionName,
             </Flex>
         </Box>
     </Flex>
-)
+);
